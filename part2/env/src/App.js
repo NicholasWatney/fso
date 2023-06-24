@@ -1,12 +1,31 @@
 import { useState, useEffect } from "react";
 import server from "./services/server.js";
 
+const Notification = ({notification}) => {
+  if (notification == null) {
+    return null;
+  } else {
+    return (
+      <div
+        style = {{
+          font: "14px",
+          borderRadius: "1px",
+          color: "orange",
+          backgroundColor: "black"
+        }}
+      >
+        {notification}
+      </div>
+    )
+  }
+}
 const App = () => {
   const [data, setData] = useState([]);
   const [add, setAdd] = useState({
     name: "", number: ""
   });
   const [filter, setFilter] = useState("");
+  const [notification, setNotification] = useState(null);
 
   const shownData = filter === "" ? data : 
     data.filter((element) => {
@@ -27,6 +46,7 @@ const App = () => {
         <input onChange={(event) => setFilter(event.target.value)}/>
       </div>
       <h1>add a new</h1>
+      <Notification notification={notification}/>
       <div>
         name:
         <input 
@@ -46,8 +66,12 @@ const App = () => {
             .create(add)
             .then(response => {
               setData(data.concat(response));
+              setNotification(`Added ${response.name}`)
             })
           setAdd({name: "", number: ""})
+          setTimeout(() => {
+            setNotification(null);
+          }, 2000)
         }}>
         <button type='submit'>add</button> 
       </form>
