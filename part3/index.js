@@ -44,6 +44,10 @@ app.get("/info", (request, response) => {
   response.send(infoMessage);
 });
 
+app.get("/", (request, response) => {
+  response.send("Welcome to the Phonebook API");
+});
+
 app.get("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
   const person = notes.find((note) => note.id === id);
