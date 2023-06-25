@@ -7,6 +7,7 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.json());
 app.use(requestLogger);
+app.use(express.static('build'))
 
 
 let notes = [
@@ -42,10 +43,6 @@ app.get("/info", (request, response) => {
   const infoMessage = `Phonebook has info for ${entryCount} people.<br><br>Current time: ${currentTime}`;
 
   response.send(infoMessage);
-});
-
-app.get("/", (request, response) => {
-  response.send("Welcome to the Phonebook API");
 });
 
 app.get("/api/persons/:id", (request, response) => {
