@@ -6,7 +6,10 @@ const cors = require('cors')
 
 app.use(cors())
 app.use(express.json());
-app.use(requestLogger);
+const os = require('os');
+
+const username = os.userInfo().username;
+console.log(username);
 app.use(express.static('build'))
 
 
