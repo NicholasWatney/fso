@@ -7,9 +7,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('build'));
 
-const password = process.argv[2];
+const username = process.env.USER;
+const password = process.env.PASS;
 // DO NOT SAVE YOUR PASSWORD TO GITHUB!!
-const url = `mongodb+srv://nicholaswatney:${password}@cluster0.q7omy7x.mongodb.net/noteApp?retryWrites=true&w=majority`;
+const url = `mongodb+srv://${username}:${password}@cluster0.q7omy7x.mongodb.net/noteApp?retryWrites=true&w=majority`;
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
